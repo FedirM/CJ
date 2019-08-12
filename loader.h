@@ -14,7 +14,7 @@ public:
 signals:
     void newPercent(double percent);
     void finished();
-    void errorString(QString);
+    void errorString(QString msg);
 
 public slots:
     void load();

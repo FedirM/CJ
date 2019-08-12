@@ -26,11 +26,11 @@ void Loader::setVectors(QVector<QString> *hi, QVector<QString> *hx, QVector<QStr
 
 void Loader::load()
 {
-    QFile inFH(":/data/REPO.txt");
+    QFile inFH(":/data/REPO2.txt");
     if( !inFH.open(QIODevice::ReadOnly) ){
-        emit errorString(inFH.errorString());
-        emit finished();
-        exit(-2);
+        qDebug() << "Cann't open file!!!" << inFH.errorString();
+        emit errorString(inFH.errorString() + "\nCan't find file with initial data...");
+        return;
     }
 
     QTextStream in(&inFH);

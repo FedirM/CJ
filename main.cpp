@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
 
 //    engine.rootContext()->setContextProperty("CJ", obj);
-    qmlRegisterType<CJ>("CJ", 1, 0, "CJ");
+    qmlRegisterSingletonType<CJ>("CJ", 1, 0, "CJ", CJ::initSingleton);
 
     engine.load(url);
 

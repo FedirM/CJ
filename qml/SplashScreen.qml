@@ -13,10 +13,6 @@ Window {
     flags: Qt.SplashScreen
     color: "#00000000"
 
-    CJ{
-        id: cjController
-    }
-
     Image {
         id: logo
         source: "qrc:/img/mova_logo.png"
@@ -35,7 +31,7 @@ Window {
         from : 0.0
 
         Connections{
-            target: cjController
+            target: CJ
             onRepeatPercent: {
                 progress.value = percent;
                 console.log("Get new percent: ", percent);
@@ -43,6 +39,7 @@ Window {
             onRepeatFinished:{
                 console.log("FINISH...."); console.log("Switch to main window.");
                 splashWindow.visible = false;
+                splashWindow.close();
                 timeout();
             }
         }
@@ -51,7 +48,7 @@ Window {
     Component.onCompleted: {
         splashWindow.visible = true;
         console.log("Splash screen completed....");
-        cjController.runLoader();
+        CJ.runLoader();
         console.log("Loading....");
     }
 }

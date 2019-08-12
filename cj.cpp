@@ -17,17 +17,14 @@ CJ::CJ(QObject *parent) : QObject(parent)
     pn = new QVector<QString>();
 }
 
-//QObject *CJ::initSingleton(QQmlEngine *engine, QJSEngine *scriptEngine)
-//{
-//    Q_UNUSED(engine);
-//    Q_UNUSED(scriptEngine);
+QObject *CJ::initSingleton(QQmlEngine *engine, QJSEngine *scriptEngine)
+{
+    Q_UNUSED(engine);
+    Q_UNUSED(scriptEngine);
 
-//    QThread *th = new QThread();
-//    CJ *cj = new CJ();
-//    cj->moveToThread(th);
-
-//    return cj;
-//}
+    CJ *cj = new CJ();
+    return cj;
+}
 
 CJ::~CJ()
 {
@@ -36,13 +33,12 @@ CJ::~CJ()
     delete hx;
     delete tn;
     delete pn;
-    delete worker;
 }
 
 void CJ::runLoader()
 {
     QThread *thread = new QThread();
-    worker = new Loader();
+    Loader* worker = new Loader();
     worker->setVectors(hi, hx, pn, tn, cj);
 
     worker->moveToThread(thread);
@@ -59,6 +55,7 @@ void CJ::runLoader()
 void CJ::onErrorString(QString msg)
 {
     qDebug() << "New error has been occuer....\nErr msg: " << msg;
+    emit repeatError(msg);
 }
 
 void CJ::onNewPercent(double val)
